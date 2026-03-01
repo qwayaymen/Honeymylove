@@ -1,111 +1,107 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>هل تقبلين الزواج مني؟ 💍</title>
+<title>For Huny 💙</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-background:linear-gradient(135deg,#ff9a9e 0%,#fecfef 100%);
-min-height:100vh;
-overflow:hidden;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #000;
+    color: white;
+    transition: 0.6s;
 }
 
-.container{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-min-height:100vh;
-padding:20px;
-text-align:center;
+.page {
+    display: none;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
-#cat{
-width:200px;
-margin-bottom:20px;
+.active {
+    display: flex;
 }
 
-.step{display:none;}
-.step.active{display:block;}
-
-button{
-padding:12px 30px;
-border:none;
-border-radius:40px;
-cursor:pointer;
-font-size:18px;
-margin:10px;
+button {
+    padding: 15px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 20px;
 }
 
-.btn-next{background:#ff758c;color:white;}
-.btn-yes{background:#ff4d6d;color:white;}
-.btn-no{background:#6c757d;color:white;position:relative;}
+.blue {
+    background-color: #1e90ff;
+    color: white;
+}
+
+.pink {
+    background-color: hotpink;
+    color: white;
+}
+
+.butterfly {
+    position: absolute;
+    font-size: 30px;
+    animation: float 10s linear infinite;
+    color: #1e90ff;
+}
+
+@keyframes float {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); }
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
-
-<div id="cat">
-<svg viewBox="0 0 100 100">
-<ellipse cx="50" cy="60" rx="35" ry="30" fill="#ffa500"/>
-<polygon points="20,40 30,15 40,35" fill="#ffa500"/>
-<polygon points="80,40 70,15 60,35" fill="#ffa500"/>
-<ellipse cx="35" cy="50" rx="8" ry="10" fill="#333"/>
-<ellipse cx="65" cy="50" rx="8" ry="10" fill="#333"/>
-<polygon points="50,58 45,65 55,65" fill="#ff69b4"/>
-<path d="M 40 70 Q 50 80 60 70" stroke="#333" stroke-width="2" fill="none"/>
-</svg>
+<!-- الصفحة 1 -->
+<div id="page1" class="page active">
+    <h1>Huny 💙</h1>
+    <p>اشتقت اليك اليوم كثيرا 💙<br>هل انتي ايضا اشتقتي الي ؟!</p>
+    <button class="blue" onclick="nextPage(2)">نعم</button>
 </div>
 
-<div class="step active" id="step1">
-<h1>مرحباً حبيبتي 👋</h1>
-<p>لدي شيء مهم أريد أن أخبرك به...</p>
-<button class="btn-next" onclick="nextStep(2)">هيا بنا 💕</button>
+<!-- الصفحة 2 -->
+<div id="page2" class="page">
+    <h1 onclick="nextPage(3)" style="cursor:pointer;">
+        You are special 🦋💙
+    </h1>
 </div>
 
-<div class="step" id="step2">
-<h1>أريد أن أخبرك بشيء 💭</h1>
-<p>منذ أن دخلتِ حياتي أصبح كل شيء أجمل...</p>
-<button class="btn-next" onclick="nextStep(3)">استمر 🌸</button>
-</div>
-
-<div class="step" id="step3">
-<h1>هل تقبلين الزواج مني؟ 💍</h1>
-<p>أريد أن أقضي بقية حياتي معك ❤️</p>
-<button class="btn-yes" onclick="acceptLove()">نعم ❤️</button>
-<button class="btn-no" id="noBtn">لا 😢</button>
-</div>
-
-<div class="step" id="step4">
-<h1>قالت نعم! 🎉</h1>
-<p>أحبك إلى الأبد 💖</p>
-</div>
-
+<!-- الصفحة 3 -->
+<div id="page3" class="page">
+    <button class="pink" onclick="finalPage()">
+        اريد حظنا كبيراااااا 🫂🫂
+    </button>
 </div>
 
 <script>
-function nextStep(id){
-document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
-document.getElementById('step'+id).classList.add('active');
+function nextPage(pageNumber) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById("page" + pageNumber).classList.add("active");
 }
 
-function acceptLove(){
-nextStep(4);
-}
+function finalPage() {
+    document.body.style.backgroundColor = "#ffc0cb";
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
 
-const noBtn=document.getElementById("noBtn");
-if(noBtn){
-noBtn.addEventListener("mouseover",()=>{
-noBtn.style.position="fixed";
-noBtn.style.left=Math.random()*80+"vw";
-noBtn.style.top=Math.random()*80+"vh";
-});
+    for (let i = 0; i < 30; i++) {
+        let butterfly = document.createElement("div");
+        butterfly.className = "butterfly";
+        butterfly.innerHTML = "🦋";
+        butterfly.style.left = Math.random() * 100 + "vw";
+        butterfly.style.animationDuration = (5 + Math.random() * 5) + "s";
+        document.body.appendChild(butterfly);
+    }
 }
 </script>
 
