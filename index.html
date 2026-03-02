@@ -1,80 +1,355 @@
-<!DOCTYPE html>
+
+html_code = '''<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>صور خاصة</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 20px;
-      background: #111;
-      color: #eee;
-      font-family: system-ui, -apple-system, sans-serif;
-      text-align: center;
-    }
-    h1 {
-      color: #ff69b4;
-      margin-bottom: 40px;
-      font-size: 2.4rem;
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .card {
-      background: #1a1a1a;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.7);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      cursor: pointer;
-    }
-    .card:hover {
-      transform: scale(1.06);
-      box-shadow: 0 12px 30px rgba(255,105,180,0.4);
-    }
-    .card img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    footer {
-      margin-top: 60px;
-      color: #888;
-      font-size: 0.9rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض الصور التفاعلي</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #e94560;
+            font-size: 3rem;
+            margin-bottom: 50px;
+            text-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(233, 69, 96, 0.5); }
+            to { text-shadow: 0 0 30px rgba(233, 69, 96, 0.8), 0 0 40px rgba(233, 69, 96, 0.6); }
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .image-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .image-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(233, 69, 96, 0.3);
+            border-color: rgba(233, 69, 96, 0.5);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .image-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 30px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .image-card:hover .overlay {
+            transform: translateY(0);
+        }
+
+        .overlay-text {
+            color: #fff;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            border: 2px solid #e94560;
+            box-shadow: 0 0 50px rgba(233, 69, 96, 0.5);
+            transform: scale(0.7);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(233, 69, 96, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .modal-text {
+            color: #fff;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(233, 69, 96, 0.8);
+            position: relative;
+            z-index: 1;
+        }
+
+        .close-btn {
+            background: linear-gradient(135deg, #e94560, #c73e54);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            font-weight: bold;
+        }
+
+        .close-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(233, 69, 96, 0.5);
+        }
+
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 4s ease-in infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .click-hint {
+            text-align: center;
+            color: #888;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <h1>✨ معرض الصور السحري ✨</h1>
+        
+        <div class="gallery">
+            <!-- الصورة الأولى -->
+            <div class="image-card" onclick="openModal('تعال إليّ ❤️', '💋')">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&h=600&fit=crop" alt="صورة 1">
+                <div class="overlay">
+                    <div class="overlay-text">انقر لرؤية الرسالة</div>
+                </div>
+            </div>
 
-  <h1>اضغط على الصورة اللي تعجبك 💜</h1>
+            <!-- الصورة الثانية -->
+            <div class="image-card" onclick="openModal('أحبك 💕', '💖')">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&h=600&fit=crop" alt="صورة 2">
+                <div class="overlay">
+                    <div class="overlay-text">انقر لرؤية الرسالة</div>
+                </div>
+            </div>
 
-  <div class="gallery">
-
-    <!-- الصورة 1 -->
-    <div class="card" onclick="alert('تعال إلي 🫦')">
-      <img src="https://files.catbox.moe/ngoyb1.jpg" alt="صورة 1">
+            <!-- الصورة الثالثة -->
+            <div class="image-card" onclick="openModal('إنه يوم ساخن 🔥', '🌶️')">
+                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&h=600&fit=crop" alt="صورة 3">
+                <div class="overlay">
+                    <div class="overlay-text">انقر لرؤية الرسالة</div>
+                </div>
+            </div>
+        </div>
+        
+        <p class="click-hint">💡 اضغط على أي صورة لرؤية رسالتها الخاصة</p>
     </div>
 
-    <!-- الصورة 2 -->
-    <div class="card" onclick="alert('أحبككك 💕')">
-      <img src="https://files.catbox.moe/k4quu3.jpg" alt="صورة 2">
+    <!-- Modal -->
+    <div class="modal" id="messageModal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-icon" id="modalIcon">💋</div>
+            <div class="modal-text" id="modalText">تعال إليّ</div>
+            <button class="close-btn" onclick="closeModal()">إغلاق</button>
+        </div>
     </div>
 
-    <!-- الصورة 3 -->
-    <div class="card" onclick="alert('اليوم يوم ساخن جدًا 🔥😈')">
-      <img src="https://files.catbox.moe/dk7ght.jpg" alt="صورة 3">
-    </div>
+    <!-- Hearts Container -->
+    <div class="hearts" id="heartsContainer"></div>
 
-  </div>
+    <script>
+        function openModal(text, icon) {
+            const modal = document.getElementById('messageModal');
+            const modalText = document.getElementById('modalText');
+            const modalIcon = document.getElementById('modalIcon');
+            
+            modalText.textContent = text;
+            modalIcon.textContent = icon;
+            modal.classList.add('active');
+            
+            // Create floating hearts
+            createHearts();
+        }
 
-  <footer>
-    تم إنشاؤه بسرعة لك • 2025
-  </footer>
+        function closeModal(event) {
+            if (!event || event.target === document.getElementById('messageModal') || event.target.tagName === 'BUTTON') {
+                const modal = document.getElementById('messageModal');
+                modal.classList.remove('active');
+            }
+        }
 
+        function createHearts() {
+            const container = document.getElementById('heartsContainer');
+            const hearts = ['❤️', '💖', '💕', '💗', '💓', '💝'];
+            
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    heart.style.animationDelay = Math.random() * 2 + 's';
+                    container.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 5000);
+                }, i * 100);
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
 </body>
-</html>
+</html>'''
+
+# Save to file
+with open('/mnt/kimi/output/index.html', 'w', encoding='utf-8') as f:
+    f.write(html_code)
+
+print("✅ تم إنشاء ملف index.html بنجاح!")
+print("\n📁 الملف محفوظ في: /mnt/kimi/output/index.html")
+print("\n🚀 لاستخدامه على GitHub:")
+print("1. أنشئ repository جديد على GitHub")
+print("2. ارفع ملف index.html")
+print("3. فعل GitHub Pages من الإعدادات")
+print("4. استمتع بموقعك!")
