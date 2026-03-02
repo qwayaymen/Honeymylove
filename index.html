@@ -1,227 +1,80 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Huny 💙 | رسالة حب</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=Great+Vibes&family=Amiri&display=swap" rel="stylesheet">
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-
-body{
-font-family:'Amiri',serif;
-background:linear-gradient(135deg,#bde0fe,#a2d2ff,#cdb4db);
-background-size:400% 400%;
-animation:bgMove 15s ease infinite;
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-overflow:hidden;
-position:relative;
-}
-
-@keyframes bgMove{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
-}
-
-.card{
-background:rgba(255,255,255,0.25);
-backdrop-filter:blur(20px);
-padding:50px;
-border-radius:35px;
-box-shadow:0 30px 60px rgba(0,0,0,0.15);
-width:90%;
-max-width:550px;
-text-align:center;
-animation:fadeIn 1.2s ease;
-}
-
-@keyframes fadeIn{
-from{opacity:0;transform:translateY(40px)}
-to{opacity:1;transform:translateY(0)}
-}
-
-h1{
-font-family:'Great Vibes',cursive;
-font-size:4rem;
-margin-bottom:25px;
-background:linear-gradient(90deg,#0077b6,#8338ec);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-p{
-font-size:1.4rem;
-line-height:2.2;
-color:#1d3557;
-margin-bottom:30px;
-}
-
-button{
-padding:15px 40px;
-border:none;
-border-radius:50px;
-background:linear-gradient(135deg,#0077b6,#8338ec);
-color:white;
-font-size:1.1rem;
-cursor:pointer;
-transition:0.3s;
-box-shadow:0 15px 30px rgba(0,0,0,0.2);
-}
-
-button:hover{
-transform:translateY(-5px) scale(1.05);
-}
-
-.page{display:none}
-.active{display:block}
-
-.audio-control{
-position:fixed;
-bottom:25px;
-left:25px;
-width:60px;
-height:60px;
-background:white;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-box-shadow:0 4px 20px rgba(0,0,0,0.3);
-font-size:1.6rem;
-transition:0.3s;
-}
-
-.audio-control:hover{
-transform:scale(1.1);
-}
-
-.butterfly{
-position:fixed;
-font-size:2rem;
-animation:fly 15s linear infinite;
-pointer-events:none;
-}
-
-@keyframes fly{
-0%{transform:translateY(100vh) rotate(0);opacity:0}
-10%{opacity:1}
-100%{transform:translateY(-10vh) rotate(360deg);opacity:0}
-}
-
-.final-screen{
-display:none;
-position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-background:#1a1a2e;
-color:white;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-text-align:center;
-}
-
-.final-screen h1{
-color:white;
--webkit-text-fill-color:white;
-font-size:4.5rem;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>صور خاصة</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #111;
+      color: #eee;
+      font-family: system-ui, -apple-system, sans-serif;
+      text-align: center;
+    }
+    h1 {
+      color: #ff69b4;
+      margin-bottom: 40px;
+      font-size: 2.4rem;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .card {
+      background: #1a1a1a;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: scale(1.06);
+      box-shadow: 0 12px 30px rgba(255,105,180,0.4);
+    }
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    footer {
+      margin-top: 60px;
+      color: #888;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- Audio -->
-<audio id="bgMusic" loop preload="auto">
-<source src="https://drive.google.com/uc?export=download&id=1-Ad0AbBAuWjXdBEP3UHoPdcD7qWn3C1i" type="audio/mpeg">
-</audio>
+  <h1>اضغط على الصورة اللي تعجبك 💜</h1>
 
-<div class="audio-control" onclick="toggleMusic()" id="audioBtn">▶️</div>
+  <div class="gallery">
 
-<!-- Page 1 -->
-<div class="card page active" id="page1">
-<h1>Huny 💙</h1>
-<p>
-في كل لحظة تمرّ بي<br>
-أشعر أن قلبي يناديكِ<br>
-هل اشتقتِ إليّ كما اشتقتُ إليكِ؟
-</p>
-<button onclick="nextPage(2)">نعم 💙</button>
-</div>
+    <!-- الصورة 1 -->
+    <div class="card" onclick="alert('تعال إلي 🫦')">
+      <img src="https://files.catbox.moe/abc123.jpg" alt="صورة 1">
+    </div>
 
-<!-- Page 2 -->
-<div class="card page" id="page2">
-<h1>أنتِ الخاصة</h1>
-<p>
-أنتِ النور في طريقي<br>
-والهدوء في قلبي<br>
-وأجمل صدفة حدثت لي
-</p>
-<button onclick="nextPage(3)">استمر 🦋</button>
-</div>
+    <!-- الصورة 2 -->
+    <div class="card" onclick="alert('أحبككك 💕')">
+      <img src="https://files.catbox.moe/def456.jpg" alt="صورة 2">
+    </div>
 
-<!-- Page 3 -->
-<div class="card page" id="page3">
-<h1>وعدٌ أبدي</h1>
-<p>
-أريدُ حظّنا أن يكون أكبر من كل الأحلام<br>
-وأن نبقى معًا… إلى الأبد
-</p>
-<button onclick="showFinal()">إلى الأبد 🫂</button>
-</div>
+    <!-- الصورة 3 -->
+    <div class="card" onclick="alert('اليوم يوم ساخن جدًا 🔥😈')">
+      <img src="https://files.catbox.moe/ghi789.jpg" alt="صورة 3">
+    </div>
 
-<!-- Final Screen -->
-<div class="final-screen" id="final">
-<h1>أحبكِ إلى ما لا نهاية 💙</h1>
-</div>
+  </div>
 
-<script>
-let currentPage=1;
-function nextPage(num){
-document.getElementById("page"+currentPage).classList.remove("active");
-document.getElementById("page"+num).classList.add("active");
-currentPage=num;
-}
-
-function showFinal(){
-document.querySelectorAll(".card").forEach(c=>c.style.display="none");
-document.getElementById("final").style.display="flex";
-createButterflies();
-}
-
-function createButterflies(){
-for(let i=0;i<40;i++){
-let b=document.createElement("div");
-b.className="butterfly";
-b.innerHTML="🦋";
-b.style.left=Math.random()*100+"vw";
-b.style.animationDuration=(8+Math.random()*8)+"s";
-document.body.appendChild(b);
-}
-}
-
-let isPlaying=false;
-const music=document.getElementById("bgMusic");
-const btn=document.getElementById("audioBtn");
-
-function toggleMusic(){
-if(isPlaying){
-music.pause();
-btn.innerHTML="▶️";
-}else{
-music.play();
-btn.innerHTML="🎶";
-}
-isPlaying=!isPlaying;
-}
-</script>
+  <footer>
+    تم إنشاؤه بسرعة لك • 2025
+  </footer>
 
 </body>
 </html>
